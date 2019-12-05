@@ -1,7 +1,7 @@
 <template>
     <div class="detail">
        <div class="main">
-           <div class="img">
+           <div class="img" @click="goImg">
                <img :src="list.Picture" alt="">
                <span class="count">{{list&&list.pic_group_count}}张图片</span>
            </div>
@@ -73,6 +73,9 @@ export default {
         },
         change(index){
             this.selected = index
+        },
+        goImg(){
+           this.$router.push("/img")  
         }
     },
     created(){

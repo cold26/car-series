@@ -22,6 +22,9 @@ const routes = [
     path: '/pricepage',
     name: 'pricepage',
     component: () => import('../views/Zxdj.vue')
+  },{
+    path: '/img',
+    component: () => import('../views/Img.vue')
   }
 ]
 
