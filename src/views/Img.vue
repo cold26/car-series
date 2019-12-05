@@ -72,6 +72,6 @@ export default {
    .smallbox li:nth-child(3n){
        margin-right: 0;
    }
-   
+//    3的倍数
 </style>
 
