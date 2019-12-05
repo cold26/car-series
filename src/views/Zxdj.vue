@@ -62,7 +62,7 @@ export default {
         })
 
     },
-    methods:{
+    methods:{ //在mehoods里拿过来vuex里的方法，然后在生命周期里掉
         ...mapActions({
             nashuju:"Zxdj/nashuju"
         }),

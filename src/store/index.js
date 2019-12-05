@@ -8,13 +8,15 @@ import home from './modules/home'
 import detail from './modules/detail'
 import Zxdj from './modules/Zxdj'
 import City from './modules/city'
+import Img from "./modules/img"
 
 export default new Vuex.Store({
    modules :{
      home,
      detail,
      Zxdj,
-     City
+     City,
+     Img
    },
    plugins:[creareLogger()]
 

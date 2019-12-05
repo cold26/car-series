@@ -75,7 +75,8 @@ export default {
             this.selected = index
         },
         goImg(){
-           this.$router.push("/img")  
+            console.log(this.$route.query.SerialID)
+           this.$router.push("/img/"+this.$route.query.SerialID)  
         }
     },
     created(){
