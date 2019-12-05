@@ -1,7 +1,7 @@
 <template>
     <div class="detail">
        <div class="main">
-           <div class="img">
+           <div class="img" @click="goImg">
                <img :src="list.Picture" alt="">
                <span class="count">{{list&&list.pic_group_count}}张图片</span>
            </div>
@@ -27,7 +27,7 @@
                             <span>指导价{{ value.market_attribute.official_refer_price }}</span>
                             <span>{{ value.market_attribute.dealer_price }}起</span>
                         </p>
-                        <button @click="goPrice(value.car_id)" >询问底价</button>
+                        <button @click="goPrice(value)" >询问底价</button>
                     </li>
                 </ul>
             </div>  
@@ -67,12 +67,20 @@ export default {
         goPrice(id){
             console.log(id)
 
-            this.$router.push({path:"/pricepage",query:{
-                carId:id
-            }})
+            // this.$router.push({path:"/pricepage",query:{
+            //     carId:id
+            // }})
         },
         change(index){
             this.selected = index
+        },
+        goImg(){
+            this.$router.push({
+                path:'/img',
+                query:{
+                    SerialID:this.$route.query.SerialID
+                }
+            })
         }
     },
     created(){
@@ -165,7 +173,6 @@ export default {
 }
 .main .item {
   width: 100%;
-  background: #fff;
 }
 .item > p {
   padding: 3px 0 3px 10px;
@@ -182,7 +189,10 @@ export default {
   width: 100%;
   height: 120px;
   border-bottom: 1px solid #ccc;
+  margin: 10px 0;
+  background: #fff;
 }
+
 .item ul .line > .two {
   display: flex;
   justify-content: flex-start;
