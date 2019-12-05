@@ -1,7 +1,6 @@
 import {getDetailList} from '@/services/index'
 
 function sortCarList(list){
-    // 排序规则 排量升序 && 功率升序 && 自然吸气>涡轮增压
     list.sort((a, b)=>{
         if (a.exhaust_str == b.exhaust_str){
             if (a.max_power_str == b.max_power_str){
@@ -17,7 +16,8 @@ function sortCarList(list){
 }
 
 function formatCarList(list){
-    // 拼接每款车的 排量/功率 和 吸气方式
+
+    
     list = list.map(item=>{
         item.key = `${item.exhaust_str}/${item.max_power_str} ${item.inhale_type}`;
         return item;
@@ -49,12 +49,9 @@ const state = {
 const mutations = {
     updateDetailList(state,payload){
         state.list = payload.data.data
-        console.log(payload)
-        console.log(state.list)
         let year = state.list.list.map(item=>item.market_attribute.year);
-        //去重之后合并state的数据
-        state.year = state.year.concat([...new Set(year)])
-        console.log(state.year)
+        //去重
+        state.year = [...new Set(state.year.concat([...new Set(year)]))]
 
         let currentList = [];
         if (state.current == '全部'){
@@ -63,13 +60,12 @@ const mutations = {
             currentList = state.list.list.filter(item=>item.market_attribute.year == state.current);
         }
 
-
+        // 排序规则 排量升序 && 功率升序 && 自然吸气>涡轮增压    
         currentList = sortCarList(currentList);
 
         currentList = formatCarList(currentList);
 
         state.currentList = currentList;
-        console.log("11111111",state.currentList)
     },
    
 }

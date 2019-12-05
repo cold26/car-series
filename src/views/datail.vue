@@ -15,10 +15,9 @@
                </div>
            </div>
            <div class="c-type">
-               <span v-for="(item,index) in year" :key='index'>{{item}}</span>{{year}}
+               <span v-for="(item,index) in year" :key='index' @click="change(index)" :class="{active:selected==index}">{{item}}</span>
            </div>
            <div class="item" v-for="(item, index) in currentList" :key="index">
-                <!-- <p class="p1">{{ item.exhaust_str }}/{{ item.max_power_str }} {{item.inhale_type}}</p> -->
                 <p>{{item.key}}</p>
                 <ul v-for="(value, ind) in item.list" :key="ind">
                     <li class="line">
@@ -28,7 +27,7 @@
                             <span>指导价{{ value.market_attribute.official_refer_price }}</span>
                             <span>{{ value.market_attribute.dealer_price }}起</span>
                         </p>
-                        <button @click="goPrice(item.car_id)" >询问底价</button>
+                        <button @click="goPrice(value.car_id)" >询问底价</button>
                     </li>
                 </ul>
             </div>  
@@ -43,30 +42,11 @@
 <script>
 import {mapState,mapActions,mapMutations} from 'vuex'
 export default {
-//     data(){
-//         return {
-//             list:[],
-//             titImg:""
-//         }
-//     },
-//     methods:{
-//         getList(){
-//             this.axios.get("https://baojia.chelun.com/v2-car-getInfoAndListById.html", {
-//             params: { SerialID: this.$route.query.SerialID }
-//             }).then(res=>{
-//                 console.log(res.data)
-//                 if (res.data.code === 1) {
-//                     this.titImg = res.data.data.Picture
-//                     this.list = res.data.data
-            
-//                 }
-//             })
-//         },
-//         goPage(id){
-//             console.log(id)
-//             //  this.$router.push({path:'/home',query:{}})   
-//         }
-//     },
+    data(){
+        return {
+            selected:0
+        }
+    },
     computed:{
         ...mapState({
             list:state=>state.detail.list,
@@ -79,14 +59,20 @@ export default {
            getDetailList:"detail/getDetailList",
         }),
         goPage(list){
+            console.log(list.list[0].car_id)
             this.$router.push({path:"/pricepage",query:{
                 carId:list.list[0].car_id
             }})
         },
         goPrice(id){
+            console.log(id)
+
             this.$router.push({path:"/pricepage",query:{
                 carId:id
             }})
+        },
+        change(index){
+            this.selected = index
         }
     },
     created(){
@@ -96,6 +82,9 @@ export default {
 </script>
 
 <style scoped>
+.active{
+    color: skyblue;
+}
 .detail{
     width: 100%;
     height: 100%;
