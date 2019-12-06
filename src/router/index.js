@@ -25,7 +25,11 @@ const routes = [
   },{
     path: '/img/:id',
     component: () => import('../views/Img.vue')
-  }
+  },{
+    path: '/color/:id',
+    component: () => import('../views/color.vue')
+  },
+
 ]
 
 const router = new VueRouter({
