@@ -10,44 +10,35 @@
 
 <body>
     <script>
-        var obj = {
-            id :1,
-            name:'刚刚'
-        }
-        var obj2 = {
-            id:1,
-            name:'花花'
-        }
-        console.log(Object.assign(obj,obj2))
-        // var a = {
-        //     a: 1,
-        //     b: 2
-        // }
+        console.log(1);
 
-        // function fun1(obj) {
-        //     obj.a = 5;
-        // }
+        setTimeout(() => {
+            console.log(2);
+            Promise.resolve().then(() => {
+                console.log(3)
+            })
+        })
+        
+        new Promise((resolve, reject) => {
+            console.log(4);
+            resolve(5)
+        }).then((data) => {
+            console.log(data,"111")
+        })
 
-        // function fun2(obj) {
-        //     obj = {
-        //         a: 6
-        //     }
-        // }
-        // fun1(a);
-        // console.log(a,"1111111");
-        // fun2(a);
-        // console.log(a,"2222222")
-        // let list = ["1", "2", "hello", "JavaScript"]
-        // let i = 0,
-        //     j = 0,
-        //     k = 0;
-        // list.forEach(element => {
-        //     i++;
-        //     if (element == 2) {
-        //         return
-        //     }
-        // })
-        // console.log(i,"iiiiii")
+        Promise.resolve().then(() => {
+            console.log(6)
+        }).then(() => {
+            console.log(7)
+            setTimeout(() => {
+                console.log(8)
+            }, 0)
+        })
+
+        setTimeout(() => {
+            console.log(9)
+        })
+        console.log(10)
 
     </script>
 </body>

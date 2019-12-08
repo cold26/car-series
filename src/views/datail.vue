@@ -15,13 +15,13 @@
                </div>
            </div>
            <div class="c-type">
-               <span v-for="(item,index) in year" :key='index' @click="change(index)" :class="{active:selected==index}">{{item}}</span>
+               <span v-for="(item,index) in year" :key='index' @click="change(index,item)" :class="{active:selected==index}">{{item}}</span>
            </div>
-           <div class="item" v-for="(item, index) in currentList" :key="index">
+           <div class="item" v-for="(item, index) in currentList" :key="index" id="item">
                 <p>{{item.key}}</p>
                 <ul v-for="(value, ind) in item.list" :key="ind">
                     <li class="line">
-                        <p class="one">{{ value.car_name }}</p>
+                        <p class="one">{{value.market_attribute.year}}款 {{ value.car_name }}</p>
                         <p class="two">{{ value.trans_type }}</p>
                         <p class="three">
                             <span>指导价{{ value.market_attribute.official_refer_price }}</span>
@@ -53,11 +53,14 @@ export default {
             currentList:state=>state.detail.currentList,
             year:state=>state.detail.year
         })
+    
     },
+
     methods :{
         ...mapActions({
            getDetailList:"detail/getDetailList",
         }),
+        ...mapMutations({tabDetailList:"detail/tabDetailList"}),
         goPage(list){
             console.log(list.list[0].car_id)
             this.$router.push({path:"/pricepage",query:{
@@ -65,14 +68,17 @@ export default {
             }})
         },
         goPrice(id){
-            console.log(id)
+            // console.log(id)
 
-            // this.$router.push({path:"/pricepage",query:{
-            //     carId:id
-            // }})
+            this.$router.push({path:"/pricepage",query:{
+                carId:id
+            }})
         },
-        change(index){
-            this.selected = index
+        change(index,item){
+            this.selected = index;
+            this.tabDetailList(item)
+        this.getDetailList(this.$route.query.SerialID)
+            console.log(item)
         },
         goImg(){
             this.$router.push({
@@ -155,12 +161,20 @@ export default {
 }
 
 .main .img{
+    /* overflow: hidden; */
     width: 100%;
     position: relative;
 }
 .img img {
+  /* max-width: 100%;
+  max-height: 100%; */
   width: 100%;
   background-size:cover;
+  /* position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 50%;
+  transform: translateX(-50%) */
 }
 .img span {
   position: absolute;
@@ -189,10 +203,13 @@ export default {
   width: 100%;
   height: 120px;
   border-bottom: 1px solid #ccc;
-  margin: 10px 0;
+  margin-bottom: 10px;
   background: #fff;
 }
 
+.main .item ul:last-child{
+    margin-bottom: 0;
+}
 .item ul .line > .two {
   display: flex;
   justify-content: flex-start;

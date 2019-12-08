@@ -67,6 +67,10 @@ const mutations = {
 
         state.currentList = currentList;
     },
+    tabDetailList(state,payload){
+        console.log(payload)
+        state.current=payload
+    }
    
 }
 

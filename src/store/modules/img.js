@@ -14,7 +14,7 @@ const mutations = {
             })
             return item
         })
-        console.log(state.list)
+        // console.log(state.list)
     }
 }
 //异步操作
