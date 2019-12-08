@@ -8,7 +8,7 @@
       <!-- 下面这行注意啦，【】.属性会报错，如果报错，在渲染前判断，判断条件如第九行，这里虽然报错，页面效果正常 -->
       <div v-if="list.length!==0">
         <div v-for="(item,index) in  list[currentIndex].colorList" :key="index">
-          <span class="span1"></span>
+          <span class="span1" :style={backgroundColor:item.Value}></span>
           <span>{{item.Name}}</span>
         </div>
       </div>
@@ -44,7 +44,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-span1 {
+.span1 {
   display: inline-block;
   width: 20px;
   height: 20px;
