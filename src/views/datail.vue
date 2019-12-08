@@ -77,8 +77,8 @@ export default {
         change(index,item){
             this.selected = index;
             this.tabDetailList(item)
-        this.getDetailList(this.$route.query.SerialID)
-            console.log(item)
+            this.getDetailList(this.$route.query.SerialID)
+            // console.log(item)
         },
         goImg(){
             this.$router.push({

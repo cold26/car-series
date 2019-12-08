@@ -19,7 +19,7 @@ const mutations = {
         
 
        state.list = list
-       console.log(state.list,"11111111111")
+    //    console.log(state.list,"11111111111")
     }
 }
 //异步操作
