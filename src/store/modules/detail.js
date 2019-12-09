@@ -64,7 +64,7 @@ const mutations = {
         state.yearList = year
 
         
-        state.year = year
+        
         state.year = [...new Set(state.year.concat(year))]
 
         
