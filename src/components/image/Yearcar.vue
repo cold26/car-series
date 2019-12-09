@@ -2,8 +2,8 @@
     <div class="yearcar">
         <header @click="changeHide()">全部车款</header>
         <div class="c-type">
-            <span v-for="(item,index) in year" :key="index" 
-                @click="changeIndex(index)" 
+            <span v-for="(item,index) in yearList" :key="index" 
+                @click="changeIndex(item,index)" 
                 :class="{active:selectIndex == index}"
             >{{item}}
             </span>
@@ -12,7 +12,7 @@
             <div v-for="(item,index) in currentList" :key="index" class="item">
                 <p>{{item.key}}</p>
                 <ul>
-                    <div class="ulDiv"  v-for="(val,i) in item.list" :key="i">
+                    <div class="ulDiv"  v-for="(val,i) in item.list" :key="i"  @click="changeHide(val)">
                          <li>
                             <p>{{val.market_attribute.year}}款 {{val.car_name}}</p> 
                             <span>{{val.market_attribute.dealer_price_min}}起</span>
@@ -40,22 +40,47 @@ export default {
     computed:{
         ...mapState({
             currentList:state=>state.detail.currentList,
-            year:state=>state.detail.year
+            year:state=>state.detail.year,
+            current:state=>state.detail.current,
+            yearList:state=>state.detail.yearList,
+            
         })
     },
     methods:{
-        changeIndex(index){
-            this.selectIndex = index
+        ...mapMutations({
+            tabDetailList:"detail/tabDetailList",
+            updateYearCar:"img/updateYearCar"
+        }),
+         ...mapActions({
+           getDetailList:"detail/getDetailList",
+        }),
+        changeIndex(item,index){
+            console.log(item,"vue")
+            this.selectIndex = index;
+           
+            this.tabDetailList(item)
+           this.getDetailList(this.$route.query.SerialID)
         },
-        changeHide(){
+        changeHide(val){
+            if(val){
+                // console.log(val)
+                this.updateYearCar(val)
+                // this.updateYearCar(`${val.market_attribute.year}款${val.car_name}`)
+            }
+            
             this.$emit('update:showCar',false)
         }
     },
     created(){
-        let list = this.$store.state;
-        
-        console.log(list.detail,"list")
-        console.log(this.$store,"1113222")
+        let list = this.$store.state.detail;
+        console.log(list.current,"list.current")
+        let index =  list.yearList.indexOf(list.current)
+        if(index >= 0){
+            this.selectIndex = index
+        }else{
+            this.selectIndex = 0
+        }
+        // console.log(list.yearList,"list23232")
     }
 }
 </script>
@@ -128,10 +153,20 @@ export default {
     border-bottom: 1px solid #f4f4f4;
     
 }
+.ulDiv li:first-child span{
+    margin-left: 10px;
+    padding: 0 10px;
+     white-space: nowrap;
+}
 .ulDiv li:first-child p{
-    font-size: 16px;
+    font-size: 15px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .ulDiv li:last-child p,.ulDiv li:last-child span{
+    margin-left: 10px;
+    padding: 0 10px;
     font-size: 12px;
     color:#818181; 
 }

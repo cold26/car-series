@@ -76,6 +76,7 @@ export default {
         },
         change(index,item){
             this.selected = index;
+            console.log(item)
             this.tabDetailList(item)
             this.getDetailList(this.$route.query.SerialID)
             // console.log(item)
@@ -220,10 +221,13 @@ export default {
   padding: 0 10px;
 }
 .item ul .line > .one {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   height: 36px;
   line-height:36px;
   display: flex;
-  font-size: 16px;
+  font-size: 15px;
   justify-content: flex-start;
   align-items: center;
   margin: 0 10px;

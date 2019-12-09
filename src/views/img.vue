@@ -1,9 +1,14 @@
 <template>
     <div class="car-img">
         <div class="flex-row">
-            <span @click="changeFlag">颜色∨</span>
-            <span>|</span>
-            <span @click="changeShowCar">车款∨</span>
+            <p>
+                <span @click="changeFlag" v-if="!colorName">颜色∨</span>
+                <span @click="changeFlag" v-else>{{colorName}}</span>
+            </p>
+            <p>
+                <span @click="changeShowCar" v-if="!yearCar">车款∨</span>
+                <span @click="changeShowCar" v-else>{{yearCar}}</span>
+            </p>
         </div>
         <div class="img-default">
             <div  v-for="(item,index) in list" :key="index" class="item">
@@ -49,8 +54,21 @@ export default {
     },
     computed:{
         ...mapState({
-            list:state=>state.img.list
+            list:state=>state.img.list,
+            yearCar:state=>state.img.yearCar, 
+            colorName:state=>state.img.colorName, 
+            colorId:state=>state.img.colorId, 
+            carId:state=>state.img.carId
         })
+    },
+    watch:{
+        colorId(){
+            this.getImageList(this.$route.query.SerialID);
+            console.log(this.colorId)
+        },
+        carId(){
+            this.getImageList(this.$route.query.SerialID);
+        }
     },
     methods:{
         ...mapActions({
@@ -58,7 +76,6 @@ export default {
         }),
         changeFlag(){
             this.flag = true
-            console.log(this.flag)
         },
         changeShowCar(){
             this.showCar = true
@@ -98,18 +115,26 @@ export default {
     display: flex;
     flex-direction: column;
 }
-
+.flex-row p:first-child{
+    border-right: 1px solid #818181;
+}
 .flex-row{
     display: flex;
     width: 100%;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     height: 40px;
     background: #fff;
     span{
         font-size: 14px;
     }
+    p{
+        padding: 5px;
+        flex: 1;
+        text-align: center;
+    }
 }
+
 .img-default {
     flex: 1;
     overflow-y: scroll;

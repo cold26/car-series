@@ -6,7 +6,7 @@
         </div>
          <ul v-if="list.length">
            <div>
-               <li v-for="(item,index) in list[currentIndex].color" :key="index" @click="funColorId(item.ColorId)">
+               <li v-for="(item,index) in list[currentIndex].color" :key="index" @click="funColorId(item)">
                    <b :style="{background:item.Value}"></b><span>{{item.Name}}</span> 
                </li>
             </div>
@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import {mapState,mapActions} from 'vuex'
+import {mapState,mapActions,mapMutations} from 'vuex'
 export default {
     data(){
         return {
@@ -34,15 +34,22 @@ export default {
     methods:{
         ...mapActions({
              getModelImageYearColor:'color/getModelImageYearColor' 
+             
+        }),
+        ...mapMutations({
+            updateColorName:"img/updateColorName"
         }),
         //改变下标
         changeIndex(index){
             this.currentIndex = index
         },
-        funColorId(ColorId){
-            console.log(ColorId)
+        funColorId(item){
+            if(item){
+                console.log(1)
+                this.updateColorName(item)
+            }
             this.$emit('update:flag',false)
-            console.log()
+            
         }
     },
     mounted(){
