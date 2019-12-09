@@ -1,6 +1,6 @@
 <template>
     <div class="color-card">
-        <header>全部颜色</header>
+        <header @click="funColorId()">全部颜色</header>
         <div class="c-type" >
             <span v-for="(item,index) in list" :key="index" @click="changeIndex(index)" :class="{active:currentIndex==index}">{{item.key}}</span>
         </div>
