@@ -2,7 +2,7 @@
     <div class="detail">
        <div class="main">
            <div class="img" @click="goImg">
-               <img :src="list.Picture" alt="">
+               <img :src="list.CoverPhoto" alt="">
                <span class="count">{{list&&list.pic_group_count}}张图片</span>
            </div>
            

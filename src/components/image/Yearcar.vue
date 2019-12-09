@@ -73,7 +73,6 @@ export default {
     },
     created(){
         let list = this.$store.state.detail;
-        console.log(list.current,"list.current")
         let index =  list.yearList.indexOf(list.current)
         if(index >= 0){
             this.selectIndex = index

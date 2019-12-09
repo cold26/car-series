@@ -20,15 +20,17 @@ const mutations = {
         })
     },
     updateYearCar(state,payload){
-        console.log(payload)
         state.yearCar = `${payload.market_attribute.year}款${payload.car_name}`
         state.carId = payload.car_id
-        
+
+        console.log(state.list,"updateYearCar")
     },
     updateColorName(state,payload){
         state.colorName = payload.Name
-        
+
         state.colorId = payload.ColorId
+
+        console.log(state.list,"updateColorName")
     }
 }
 //异步操作
@@ -41,9 +43,7 @@ const actions = {
     if(state.carId){
         params.CarId = state.carId
     }
-    console.log(params)
     let res = await getImgList(params)
-    console.log(res)
     commit('imageList',res)
     }
 }
