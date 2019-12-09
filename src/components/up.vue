@@ -12,7 +12,7 @@
         <div class="touming" @click="boxdisappear"></div>
         <div class="baise">
           <div v-for="(item) in listRight.data" :key="item.CityID" class="a1">
-            <p>{{item.CityName}}</p>
+            <p @click="closeFather(item.CityName)">{{item.CityName}}</p>
           </div>
         </div>
       </div>
@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState, mapMutations, mapActions } from "vuex";
 
 export default {
   props: ["chuan"],
@@ -39,19 +39,34 @@ export default {
     }),
     ...mapState({
       listRight: state => state.Right.listright
+    }),
+    ...mapState({
+        listfu:state=>state.Zxdj.list
     })
   },
   created() {
     this.getSheng();
   },
   methods: {
+     ...mapMutations({
+        setCityName: 'Up/setCityName'
+     }),
+     closeFather(cityName) {
+        this.$emit('update:chuan', false) //update关键字，第二个参数false是往回传的值
+        this.setCityName(cityName)
+        this.nashuju({cityId:202,carId:396})
+     },
     ...mapActions({
       getSheng: "Up/getSheng"
     }),
     ...mapActions({
       getShi: "Right/getShi"
     }),
+     ...mapActions({
+      nashuju: "Zxdj/nashuju"
+    }),
     renderCity(index) {
+        this.$emit('func',index)
       this.getShi(index);
       this.flag = true;
       //  this.zichuanfu=true
@@ -63,7 +78,6 @@ export default {
     boxdisappear(){
        this.flag=false
        this.gai=false;
-      
     }
   }
 };
@@ -129,7 +143,7 @@ export default {
    overflow-y: hidden;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.6);
   position: fixed;
   left: 0;
   top: 0;
@@ -147,7 +161,7 @@ export default {
   .baise {
     width: 70%;
     height: 100%;
-    background: red;
+    background:white;
     overflow-y: scroll;
     .a1{
       height: 35px;

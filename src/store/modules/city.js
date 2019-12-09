@@ -13,7 +13,7 @@ const mutations = {
 const actions = {
     async  nacity({commit}, payload){
         let res = await nacity();
-        console.log('res...', res);
+        // console.log('res123456', res);
         commit('updateList', res.data);
     }
 }

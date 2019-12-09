@@ -15,7 +15,7 @@ const actions = {
          console.log(payload) 
       let res= await getShi(payload)
       
-        console.log('res...', res.data);
+        // console.log('res...', res.data);
 
        await  commit('updateList', res.data);
     }
