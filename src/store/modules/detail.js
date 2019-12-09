@@ -51,14 +51,23 @@ const mutations = {
     updateDetailList(state,payload){
         state.list = payload.data.data
        
-        let year = state.list.list.map(item=>item.market_attribute.year);
+        let year = payload.data.data.list.map(item=>item.market_attribute.year);
         //去重
         year = [...new Set(year)]
+    
+        console.log(year)
+
+        year = year.sort(function (a,b){
+            return b-a
+        })
+        
         state.yearList = year
-        // console.log(year)
+
+        
+        state.year = year
         state.year = [...new Set(state.year.concat(year))]
 
-
+        
         let currentList = [];
         if (state.current == '全部'){
             currentList =state.list.list;

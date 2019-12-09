@@ -5,7 +5,7 @@
                <img :src="list.CoverPhoto" alt="">
                <span class="count">{{list&&list.pic_group_count}}张图片</span>
            </div>
-                      
+
            <div class="into">
                 <p>{{list.market_attribute&&list.market_attribute.dealer_price}}</p>
                 <p>指导价{{list.market_attribute&&list.market_attribute.official_refer_price}}</p>
@@ -55,7 +55,7 @@ export default {
         })
     
     },
-
+    
     methods :{
         ...mapActions({
            getDetailList:"detail/getDetailList",
