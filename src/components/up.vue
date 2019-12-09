@@ -1,75 +1,164 @@
 <template>
-  <div class="wrap" :class="{active:chuan}">
-     <div v-if="list.length!=0">
-
-         <div v-for="(item,index) in list.data" :key="index">
-             <p @click="renderCity(item.CityID)">{{item.CityName}}</p> 
-         </div>
-         <div v-for="(item) in listRight.data" :key="item.CityID">
-             <p>{{item.CityName}}</p>
-         </div>
-         
-
+  <div class="wrap" :class="{active:chuan}" >
+    <div v-if="list.length!=0" :class="{active2:gai}">
+       <div class="top1"><span>自动定位</span></div>
+       <div  class="top2"><span>北京</span> </div>
+        <div class="top1"><span>省市</span></div>
+      <div v-for="(item,index) in list.data" :key="index" class="left1">
+        <p @click="renderCity(item.CityID)">{{item.CityName}}</p>
+        <p>＞</p>
       </div>
+      <div class="right" :class="{active1:flag}">
+        <div class="touming" @click="boxdisappear"></div>
+        <div class="baise">
+          <div v-for="(item) in listRight.data" :key="item.CityID" class="a1">
+            <p>{{item.CityName}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-
-import {mapState,mapActions} from 'vuex'
+import { mapState, mapActions } from "vuex";
 
 export default {
-   props: ["chuan"],
-   data(){
-      return{
-         canshu:null
-      }
-   },
-   computed:{
-      ...mapState({
-      list: state => state.Up.list 
-    }),
-     ...mapState({
-      listRight: state => state.Right.listright 
-    })
-
+  props: ["chuan"],
+  data() {
+    return {
+      canshu: null,
+      flag: false,
     
-   },
-    created(){   
-          this.getSheng()
+      gai:false
+    };
+  },
+  computed: {
+    ...mapState({
+      list: state => state.Up.list
+    }),
+    ...mapState({
+      listRight: state => state.Right.listright
+    })
+  },
+  created() {
+    this.getSheng();
+  },
+  methods: {
+    ...mapActions({
+      getSheng: "Up/getSheng"
+    }),
+    ...mapActions({
+      getShi: "Right/getShi"
+    }),
+    renderCity(index) {
+      this.getShi(index);
+      this.flag = true;
+      //  this.zichuanfu=true
+      //    this.$emit('func',this.zichuanfu)
+      this.gai=true;
+      console.log(this.gai)
+      
     },
-    methods:{
-         ...mapActions({
-            getSheng:"Up/getSheng"
-        }),
-          ...mapActions({
-            getShi:"Right/getShi"
-        }),
-        renderCity(index){
-           
-         
-           this.getShi(index)
-        }
+    boxdisappear(){
+       this.flag=false
+       this.gai=false;
+      
     }
-}
+  }
+};
 </script>
 
 <style lang="scss" scoped>
-   .wrap{
-       width:100%;
-       height: 100%;
-       background:white;
-       z-index: 100;
-      
-       position: fixed;
-       left: 0;
-       top: 0;
-        transform: translateY(100%);
-    //  transform: translateY(100%);
-   }  
-   .active{
-        transform: translateY(0%);
-        transition: all 1s;
+.wrap {
+  width: 100%;
+  height: 100%;
+  
+  background: white;
+  z-index:10;
+  overflow-x: hidden;
+  position: fixed;
+  left: 0;
+  top: 0;
+  transform: translateY(100%);
+  z-index: 20;
+   .left1{
+      z-index: 20;
+      display: flex;
+      height: 35px;
+      line-height: 35px;
+      border-bottom: 1px solid #ccc;
+       p:nth-child(1){
+           flex:9;
+         margin-left: 10px;
+          margin-left: 10px;
+           font-size: 14px;
+       }
+        p:nth-child(2){
+           flex:1;
+           color:#999
+       }
+
    }
+   .top1{
+      width: 100%;
+      height: 20px;
+      background: #f4f4f4;
+      span{
+         margin-left: 10px;
+          margin-left: 10px;
+           font-size: 14px;
+      }
+   }
+   .top2{
+       width: 100%;
+       height: 35px;
+       line-height: 35px;
+       span{
+           margin-left: 10px;
+           font-size: 14px;
+       }
+   }
+  //  transform: translateY(100%);
+}
+.active {
+  transform: translateY(0%);
+  transition: all 1s;
+}
+.right {
+   overflow-y: hidden;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  position: fixed;
+  left: 0;
+  top: 0;
+  transform: translateX(100%);
+ 
+  display: flex;
+  &.active1 {
+    transform: translateX(0);
+     transition: all 1s;
+  }
+  .touming {
+    width: 30%;
+    height: 100%;
+  }
+  .baise {
+    width: 70%;
+    height: 100%;
+    background: red;
+    overflow-y: scroll;
+    .a1{
+      height: 35px;
+      line-height: 35px;
+      border-bottom: 1px solid #ccc;
+    }
+  }
+}
+.active2{
+   height: 667px;
+    overflow: hidden;
+}
 </style>>
 

@@ -1,5 +1,5 @@
 <template>
-   <div class="wrap">     
+   <div class="wrap" >     
       <div class="header">
           <p>可向多个商家咨询最低价，商家及时回复</p>
     </div> 
@@ -35,7 +35,7 @@
       </div>
        
       
-        <Up :chuan="flag"></Up>
+        <Up :chuan="flag" ></Up>
    </div>
 </template> 
 
@@ -47,7 +47,8 @@ import Up from "../components/up"
 export default {
     data(){
         return{
-            flag:false
+            flag:false,
+             msgFormSon:false
         }
     },
     created(){
@@ -68,7 +69,8 @@ export default {
         }),
         tanchu(){
             this.flag=true;
-        }
+        },
+     
     },
 }
 </script>
@@ -77,7 +79,10 @@ export default {
    .wrap{
        width:100%;
        height:100%;
-      overflow-y: auto;
+        overflow-y: auto;
+        // overflow: hidden;
+    
+     
    }
    .main{
        width: 100%;
@@ -175,6 +180,5 @@ export default {
      height: 2000px;
  }
 
-   
 
 </style>
