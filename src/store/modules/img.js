@@ -31,7 +31,7 @@ const mutations = {
 
     }
 }
-//异步操作
+//异步
 const actions = {
     async getImageList({commit,state},payload){
         let params = {SerialID:payload};
