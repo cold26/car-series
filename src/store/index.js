@@ -13,6 +13,7 @@ import City from './modules/city'
 
 import Up from "./modules/up"
 import Right from "./modules/Right"
+// 图片
 import img from './modules/img'
 import color from './modules/color'
 
