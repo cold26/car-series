@@ -47,6 +47,7 @@ export default {
             selected:0
         }
     },
+    // 注入state的数据
     computed:{
         ...mapState({
             list:state=>state.detail.list,
@@ -57,6 +58,7 @@ export default {
     },
     
     methods :{
+        // 注入方法 异步和同步
         ...mapActions({
            getDetailList:"detail/getDetailList",
         }),

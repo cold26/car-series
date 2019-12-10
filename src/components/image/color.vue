@@ -22,6 +22,7 @@ export default {
             currentIndex:0
         }
     },
+    // 注入state的数据
     computed:{
         ...mapState({
             list:state=>state.color.list,
@@ -32,6 +33,7 @@ export default {
         this.getModelImageYearColor(this.$route.query.SerialID)
     },
     methods:{
+        // 注入vuex的方法
         ...mapActions({
              getModelImageYearColor:'color/getModelImageYearColor' 
              
@@ -43,6 +45,7 @@ export default {
         changeIndex(index){
             this.currentIndex = index
         },
+        // 调用vuex的方法
         funColorId(item){
             if(item){
                 console.log(1)

@@ -37,6 +37,7 @@ export default {
             selectIndex:0,
         }
     },
+    // 计算属性注入数据
     computed:{
         ...mapState({
             currentList:state=>state.detail.currentList,
@@ -47,6 +48,8 @@ export default {
         })
     },
     methods:{
+
+        // 注入vuex的方法
         ...mapMutations({
             tabDetailList:"detail/tabDetailList",
             updateYearCar:"img/updateYearCar"
@@ -61,11 +64,11 @@ export default {
             this.tabDetailList(item)
            this.getDetailList(this.$route.query.SerialID)
         },
+
+        // 调用方法 传参
         changeHide(val){
             if(val){
-                // console.log(val)
                 this.updateYearCar(val)
-                // this.updateYearCar(`${val.market_attribute.year}款${val.car_name}`)
             }
             
             this.$emit('update:showCar',false)
@@ -79,7 +82,6 @@ export default {
         }else{
             this.selectIndex = 0
         }
-        // console.log(list.yearList,"list23232")
     }
 }
 </script>
@@ -123,14 +125,12 @@ export default {
 }
 .main{
     flex: 1;
-    // overflow-y: scroll;
-    // overflow: auto;
 }
 .item{
     flex-shrink: 1;
 }
-.item p{
-    padding:5px;
+.item>p{
+    padding:3px 10px;
 }
 .item ul{
     padding: 10px 10px;
@@ -164,10 +164,10 @@ export default {
     white-space: nowrap;
 }
 .ulDiv li:last-child p,.ulDiv li:last-child span{
-    margin-left: 10px;
-    padding: 0 10px;
     font-size: 12px;
     color:#818181; 
 }
-
+.ulDiv li:last-child span{
+    margin-right: 10px;
+}
 </style>

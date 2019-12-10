@@ -12,9 +12,7 @@ const mutations = {
 
 const actions = {
     async  nashuju({commit}, payload){
-        // console.log("11111111111111",payload)
         let res = await nashuju({cityId:payload.cityId,carId:payload.carId});
-        // console.log('res...sssssssss', res.data);
         commit('updateList', res.data);
     }
 }

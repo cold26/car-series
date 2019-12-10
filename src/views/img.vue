@@ -27,8 +27,9 @@
                 <Color :flag.sync="flag"/>
             </div>
         </transition>
-         <!-- 选择具体车款 -->
+         
          <transition name="scroll">
+             <!-- 选择具体车款 -->
              <div class="wrap" v-show="showCar">
                 <Yearcar :showCar.sync="showCar"/>
             </div>
@@ -52,6 +53,8 @@ export default {
         Color,
         Yearcar
     },
+
+    // 注入数据
     computed:{
         ...mapState({
             list:state=>state.img.list,
@@ -71,6 +74,7 @@ export default {
         }
     },
     methods:{
+        // 注入方法
         ...mapActions({
             getImageList:'img/getImageList'
         }),
