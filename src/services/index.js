@@ -4,17 +4,12 @@ export * from './modules/home'
 export * from './modules/detail'
 // 咨询底价
 export * from './modules/Zxdj'
-<<<<<<< HEAD
 export * from "./modules/city"
-export * from "./modules/img"
-export * from "./modules/color"
 export * from "./modules/up"
 export * from "./modules/Right"
-=======
 // 城市页面
 export * from "./modules/city"
 // 图片页面
 export * from "./modules/img"
 // 颜色页面
 export * from "./modules/color"
->>>>>>> zyh

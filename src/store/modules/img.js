@@ -1,23 +1,3 @@
-<<<<<<< HEAD
-import { naimg } from '@/services/index'
-
-const state = {
-    list: []
-}
-
-const mutations = {
-    updateList(state, payload) {
-        state.list = payload;
-    }
-}
-
-const actions = {
-    async naimg({ commit }, payload) {
-        console.log(payload, 111111111)
-        let res = await naimg(payload);
-        console.log('res...', res.data);
-        commit('updateList', res.data);
-=======
 import {getImgList} from '@/services/index'
 
 
@@ -64,20 +44,12 @@ const actions = {
         let res = await getImgList(params)
 
         commit('imageList',res)
->>>>>>> zyh
     }
 }
 
 export default {
-<<<<<<< HEAD
-    namespaced: true,
-    state,
-    mutations,
-    actions
-=======
     state,
     mutations,
     actions,
     namespaced:true
->>>>>>> zyh
 }

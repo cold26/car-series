@@ -2,11 +2,7 @@
     <div class="detail">
        <div class="main">
            <div class="img" @click="goImg">
-<<<<<<< HEAD
-               <img :src="list.Picture" alt="">
-=======
                <img :src="list.CoverPhoto" alt="">
->>>>>>> zyh
                <span class="count">{{list&&list.pic_group_count}}张图片</span>
            </div>
 
@@ -80,14 +76,6 @@ export default {
                 carId:id
             }})
         },
-<<<<<<< HEAD
-        change(index){
-            this.selected = index
-        },
-        goImg(){
-            console.log(this.$route.query.SerialID)
-           this.$router.push("/img/"+this.$route.query.SerialID)  
-=======
         change(index,item){
             this.selected = index;
             console.log(item)
@@ -102,7 +90,6 @@ export default {
                     SerialID:this.$route.query.SerialID
                 }
             })
->>>>>>> zyh
         }
     },
     created(){
