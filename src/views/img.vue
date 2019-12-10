@@ -67,7 +67,6 @@ export default {
     watch:{
         colorId(){
             this.getImageList(this.$route.query.SerialID);
-            console.log(this.colorId)
         },
         carId(){
             this.getImageList(this.$route.query.SerialID);
