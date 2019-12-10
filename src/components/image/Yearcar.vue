@@ -58,7 +58,6 @@ export default {
            getDetailList:"detail/getDetailList",
         }),
         changeIndex(item,index){
-            console.log(item,"vue")
             this.selectIndex = index;
            
             this.tabDetailList(item)
