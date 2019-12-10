@@ -2,10 +2,14 @@
     <div class="detail">
        <div class="main">
            <div class="img" @click="goImg">
+<<<<<<< HEAD
                <img :src="list.Picture" alt="">
+=======
+               <img :src="list.CoverPhoto" alt="">
+>>>>>>> zyh
                <span class="count">{{list&&list.pic_group_count}}张图片</span>
            </div>
-           
+
            <div class="into">
                 <p>{{list.market_attribute&&list.market_attribute.dealer_price}}</p>
                 <p>指导价{{list.market_attribute&&list.market_attribute.official_refer_price}}</p>
@@ -15,19 +19,19 @@
                </div>
            </div>
            <div class="c-type">
-               <span v-for="(item,index) in year" :key='index' @click="change(index)" :class="{active:selected==index}">{{item}}</span>
+               <span v-for="(item,index) in year" :key='index' @click="change(index,item)" :class="{active:selected==index}">{{item}}</span>
            </div>
-           <div class="item" v-for="(item, index) in currentList" :key="index">
+           <div class="item" v-for="(item, index) in currentList" :key="index" id="item">
                 <p>{{item.key}}</p>
                 <ul v-for="(value, ind) in item.list" :key="ind">
                     <li class="line">
-                        <p class="one">{{ value.car_name }}</p>
+                        <p class="one">{{value.market_attribute.year}}款 {{ value.car_name }}</p>
                         <p class="two">{{ value.trans_type }}</p>
                         <p class="three">
                             <span>指导价{{ value.market_attribute.official_refer_price }}</span>
                             <span>{{ value.market_attribute.dealer_price }}起</span>
                         </p>
-                        <button @click="goPrice(value.car_id)" >询问底价</button>
+                        <button @click="goPrice(value)" >询问底价</button>
                     </li>
                 </ul>
             </div>  
@@ -47,17 +51,22 @@ export default {
             selected:0
         }
     },
+    // 注入state的数据
     computed:{
         ...mapState({
             list:state=>state.detail.list,
             currentList:state=>state.detail.currentList,
             year:state=>state.detail.year
         })
+    
     },
+    
     methods :{
+        // 注入方法 异步和同步
         ...mapActions({
            getDetailList:"detail/getDetailList",
         }),
+        ...mapMutations({tabDetailList:"detail/tabDetailList"}),
         goPage(list){
             console.log(list.list[0].car_id)
             this.$router.push({path:"/pricepage",query:{
@@ -65,18 +74,35 @@ export default {
             }})
         },
         goPrice(id){
-            console.log(id)
+            // console.log(id)
 
             this.$router.push({path:"/pricepage",query:{
                 carId:id
             }})
         },
+<<<<<<< HEAD
         change(index){
             this.selected = index
         },
         goImg(){
             console.log(this.$route.query.SerialID)
            this.$router.push("/img/"+this.$route.query.SerialID)  
+=======
+        change(index,item){
+            this.selected = index;
+            console.log(item)
+            this.tabDetailList(item)
+            this.getDetailList(this.$route.query.SerialID)
+            // console.log(item)
+        },
+        goImg(){
+            this.$router.push({
+                path:'/img',
+                query:{
+                    SerialID:this.$route.query.SerialID
+                }
+            })
+>>>>>>> zyh
         }
     },
     created(){
@@ -151,12 +177,20 @@ export default {
 }
 
 .main .img{
+    /* overflow: hidden; */
     width: 100%;
     position: relative;
 }
 .img img {
+  /* max-width: 100%;
+  max-height: 100%; */
   width: 100%;
   background-size:cover;
+  /* position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 50%;
+  transform: translateX(-50%) */
 }
 .img span {
   position: absolute;
@@ -169,7 +203,6 @@ export default {
 }
 .main .item {
   width: 100%;
-  background: #fff;
 }
 .item > p {
   padding: 3px 0 3px 10px;
@@ -186,6 +219,12 @@ export default {
   width: 100%;
   height: 120px;
   border-bottom: 1px solid #ccc;
+  margin-bottom: 10px;
+  background: #fff;
+}
+
+.main .item ul:last-child{
+    margin-bottom: 0;
 }
 .item ul .line > .two {
   display: flex;
@@ -197,10 +236,13 @@ export default {
   padding: 0 10px;
 }
 .item ul .line > .one {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   height: 36px;
   line-height:36px;
   display: flex;
-  font-size: 16px;
+  font-size: 15px;
   justify-content: flex-start;
   align-items: center;
   margin: 0 10px;

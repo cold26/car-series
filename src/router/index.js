@@ -23,6 +23,7 @@ const routes = [
     name: 'pricepage',
     component: () => import('../views/Zxdj.vue')
   },{
+<<<<<<< HEAD
     path: '/img/:id',
     component: () => import('../views/Img.vue')
   },{
@@ -30,6 +31,12 @@ const routes = [
     component: () => import('../views/color.vue')
   },
 
+=======
+    path: '/img',
+    name: 'img',
+    component: () => import('../views/img.vue')
+  }
+>>>>>>> zyh
 ]
 
 const router = new VueRouter({

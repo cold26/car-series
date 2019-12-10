@@ -43,23 +43,37 @@ const state = {
     list:{},//原数据
     currentList:[],
     year:["全部"],
-    current:'全部'
+    current:'全部',
+    yearList:[]
 }
 //同步操作
 const mutations = {
     updateDetailList(state,payload){
         state.list = payload.data.data
-        let year = state.list.list.map(item=>item.market_attribute.year);
+       
+        let year = payload.data.data.list.map(item=>item.market_attribute.year);
         //去重
-        state.year = [...new Set(state.year.concat([...new Set(year)]))]
+        year = [...new Set(year)]
+    
+        console.log(year)
 
+        year = year.sort(function (a,b){
+            return b-a
+        })
+        
+        state.yearList = year
+
+        
+        
+        state.year = [...new Set(state.year.concat(year))]
+
+        
         let currentList = [];
         if (state.current == '全部'){
             currentList =state.list.list;
         }else{
             currentList = state.list.list.filter(item=>item.market_attribute.year == state.current);
         }
-
         // 排序规则 排量升序 && 功率升序 && 自然吸气>涡轮增压    
         currentList = sortCarList(currentList);
 
@@ -67,6 +81,10 @@ const mutations = {
 
         state.currentList = currentList;
     },
+    tabDetailList(state,payload){
+        console.log(payload,"item")
+        state.current = payload
+    }
    
 }
 
