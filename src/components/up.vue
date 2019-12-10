@@ -54,7 +54,7 @@ export default {
      closeFather(cityName) {
         this.$emit('update:chuan', false) //update关键字，第二个参数false是往回传的值
         this.setCityName(cityName)
-        this.nashuju({cityId:202,carId:396})
+        this.nashuju({cityId:202,carId:131315})
      },
     ...mapActions({
       getSheng: "Up/getSheng"
