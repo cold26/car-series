@@ -62,7 +62,10 @@ export default {
         ...mapActions({
            getDetailList:"detail/getDetailList",
         }),
-        ...mapMutations({tabDetailList:"detail/tabDetailList"}),
+        ...mapMutations(
+            {tabDetailList:"detail/tabDetailList"},
+            
+        ),
         goPage(list){
             console.log(list.list[0].car_id)
             this.$router.push({path:"/pricepage",query:{
@@ -71,7 +74,7 @@ export default {
         },
         goPrice(id){
             // console.log(id)
-
+            
             this.$router.push({path:"/pricepage",query:{
                 carId:id
             }})
