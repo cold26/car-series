@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import {getImgList} from '@/services/index'
-=======
 import {getImgList,getPictureList} from '@/services/index'
->>>>>>> 27fc777e1174ad5acef289b4cab58e4550bc53fd
 
 
 const state ={
@@ -65,8 +61,6 @@ const actions = {
         }
         let res = await getImgList(params)
         commit('imageList',res)
-<<<<<<< HEAD
-=======
     },
     //图片页面的列表
     async getPictureList({commit,state},payload){
@@ -80,7 +74,6 @@ const actions = {
         let res = await getPictureList(params)
         console.log(res,'res...')
         commit('setPictureList',res .data.data)
->>>>>>> 27fc777e1174ad5acef289b4cab58e4550bc53fd
     }
 }
 
