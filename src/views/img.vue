@@ -13,7 +13,7 @@
         <div class="img-default">
             <div  v-for="(item,index) in list" :key="index" class="item">
                 <li v-for="(value,ide) in item.List" :key="ide" :index="ide">
-                   <div v-if="ide == 0" class="active">
+                   <div v-if="ide == 0" class="active" @click="showPictureList(item)">
                        <p>{{item.Name}}</p>
                        <p>{{item.Count}}></p>
                    </div>
@@ -34,24 +34,33 @@
                 <Yearcar :showCar.sync="showCar"/>
             </div>
          </transition>
-            
+
+          <transition name="pictureList">
+             <!-- 选择具体车款 -->
+             <div class="wrap" v-show="showPicture">
+                <Picture :showPicture.sync="showPicture"/>
+            </div>
+         </transition>   
     </div>
 </template>
 
 <script>
 import Color from '@/components/image/color'
 import Yearcar from '@/components/image/Yearcar'
-import {mapState,mapActions} from 'vuex'
+import Picture from '@/components/image/picture'
+import {mapState,mapActions, mapMutations} from 'vuex'
 export default {
     data(){
         return {
             flag:false,
-            showCar:false
+            showCar:false,
+            showPicture:false
         }
     },
     components:{
         Color,
-        Yearcar
+        Yearcar,
+        Picture
     },
 
     // 注入数据
@@ -75,11 +84,23 @@ export default {
     methods:{
         // 注入方法
         ...mapActions({
-            getImageList:'img/getImageList'
+            getImageList:'img/getImageList',
+            getPictureList:"img/getPictureList"
         }),
+        ...mapMutations({
+            setImageId:'img/setImageId'
+        }),
+        //图片列表
+        showPictureList(value){
+            this.showPicture = true;
+            this.setImageId(value)
+            this.getPictureList(this.$route.query.SerialID)
+        },
+        // 颜色
         changeFlag(){
             this.flag = true
         },
+        // 车款
         changeShowCar(){
             this.showCar = true
         }
@@ -105,6 +126,15 @@ export default {
 .scroll-enter-active, .scroll-leave-active{
     transition: transform .3s linear;
 }
+
+//图片列表
+.pictureList-enter,.pictureList-leave-to{
+    transform: translate3d(0, 100%, 0)
+}
+.pictureList-enter-active, .pictureList-leave-active{
+    transition: transform .3s linear;
+}
+
 .wrap{
     width: 100%;
     height: 100%;

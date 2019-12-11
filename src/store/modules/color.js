@@ -27,6 +27,7 @@ const actions = {
     async getModelImageYearColor({commit},payload){
         let res = await getModelImageYearColor(payload)
         commit('colorList',res)
+        console.log(res,"res...")
     }
 }
 
