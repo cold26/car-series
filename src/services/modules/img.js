@@ -5,10 +5,7 @@ export let getImgList=(params)=>{
     console.log(params)
     return request("/v2-car-getImageList.html",{params})
 }
-<<<<<<< HEAD
-=======
 
 export let getPictureList=(params)=>{
     return request("/v2-car-getCategoryImageList.html",{params})
 }
->>>>>>> zyh
