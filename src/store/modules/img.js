@@ -12,6 +12,7 @@ const state ={
     ImageID:'',//分类ID(空间，外观，内饰，官方)
     pictureList:[],//picture图片列表
     Count:'',//设置总条数
+    current:0,//轮播的当前图片
 }
 //同步操作
 const mutations = {
@@ -41,12 +42,28 @@ const mutations = {
     },
     // 给图片列表的数组赋值
     setPictureList(state,payload){
+        console.log(payload,"111")
         state.Count = payload.Count
         console.log(payload,"....")
+        payload.ImageID && (state.ImageID = payload.ImageID);
         state.pictureList = payload.List.map(item=>{
             item.Url = item.Url.replace("{0}",3);
             return item
         })
+        if (state.page == 1){
+            state.pictureList = payload.List;
+        }else{
+            state.pictureList = state.pictureList.concat(payload.List);
+        }
+
+    },
+     // 修改当前分页
+     setPage(state, payload){
+        state.page = payload;
+    },
+    //改变轮播的下标
+    setCurrent(state, payload){
+        state.current = payload;
     }
 }
 //异步操作
@@ -72,8 +89,8 @@ const actions = {
         params.PageSize = state.PageSize
         // console.log(params,"params...")
         let res = await getPictureList(params)
-        console.log(res,'res...')
-        commit('setPictureList',res .data.data)
+        console.log(res,'res...111')
+        commit('setPictureList',res.data.data)
     }
 }
 

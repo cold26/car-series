@@ -55,7 +55,7 @@ const mutations = {
         //去重
         year = [...new Set(year)]
     
-        console.log(year)
+        // console.log(year)
 
         year = year.sort(function (a,b){
             return b-a

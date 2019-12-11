@@ -17,7 +17,7 @@
                        <p>{{item.Name}}</p>
                        <p>{{item.Count}}></p>
                    </div>
-                   <img :src=value.Url alt="" class="img">
+                   <img :src=value.Url alt="" class="img"  @click.self="showSwiper(item,ide)">
                 </li>
             </div>
         </div>
@@ -41,6 +41,8 @@
                 <Picture :showPicture.sync="showPicture"/>
             </div>
          </transition>   
+
+         <ImagePreview v-if="showImageSwiper" :showImageSwiper.sync="showImageSwiper"></ImagePreview>
     </div>
 </template>
 
@@ -48,19 +50,23 @@
 import Color from '@/components/image/color'
 import Yearcar from '@/components/image/Yearcar'
 import Picture from '@/components/image/picture'
+import ImagePreview from '@/components/image/ImagePreview'
 import {mapState,mapActions, mapMutations} from 'vuex'
 export default {
     data(){
         return {
             flag:false,
             showCar:false,
-            showPicture:false
+            showPicture:false,
+            showImageSwiper: false
+
         }
     },
     components:{
         Color,
         Yearcar,
-        Picture
+        Picture,
+        ImagePreview
     },
 
     // 注入数据
@@ -86,16 +92,32 @@ export default {
         // 注入方法
         ...mapActions({
             getImageList:'img/getImageList',
-            getPictureList:"img/getPictureList"
+            getPictureList:"img/getPictureList",
+           
         }),
         ...mapMutations({
-            setImageId:'img/setImageId'
+            setCurrent:"img/setCurrent",
+            setImageId:'img/setImageId',
+            setPictureList: 'img/setPictureList'
         }),
         //图片列表
         showPictureList(value){
+            console.log(value)
+
             this.showPicture = true;
             this.setImageId(value)
             this.getPictureList(this.$route.query.SerialID)
+        },
+        //点击图片
+        showSwiper(item,index){
+            console.log(item,index,"11111")
+            this.setCurrent(index)
+            this.setPictureList({
+                Count:item.Count,
+                List:item.List,
+                ImageID:item.Id
+            })
+            this.showImageSwiper = true
         },
         // 颜色
         changeFlag(){
