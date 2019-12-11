@@ -40,20 +40,29 @@
         <button>咨询底价</button>
       </div>
       <div class="box">
-               <div class="one" v-for="(item,index) in list.list" :key="index">
-                    <li><p>{{item.dealerShortName}}</p><span>万</span></li>
-                    <li><p class="c1">{{item.address}}</p><span>售本市</span></li>
+        <div class="one" v-for="(item,index) in list.list" :key="index">
+          <span
+            class="duigou"
+            @click="changeduigou(index)"
+            :class="{active4:isArr.includes(index)}"
+          >√</span>
+          <!-- <span class="duigou" @click="changeduigou" >√</span> -->
 
-               </div>
+          <!-- <span :style="{display:'block',width:'20px',height:'20px',background:'red'}">√</span> -->
+          <li>
+            <p>{{item.dealerShortName}}</p>
+            <span>万</span>
+          </li>
+          <li>
+            <p class="c1">{{item.address}}</p>
+            <span :style="{width:'37px'}">售本市</span>
+          </li>
+        </div>
       </div>
-      <!--  -->
-      
-
-      <!--  -->
     </div>
 
     <!-- up是划出城市的二级联动，是定位的 -->
-    <Up :chuan.sync="flag" @func="getMsgFormSon" ></Up>
+    <Up :chuan.sync="flag" @func="getMsgFormSon"></Up>
     <!-- 通过.sync子组件可以改变父组件的值 -->
   </div>
 </template> 
@@ -67,27 +76,38 @@ export default {
   data() {
     return {
       flag: false,
+      flag1: false,
       msgFormSon: false,
-      cityid: 201
+      cityid: 201,
+      currentIndex: 0,
+      isArr: [0, 1, 2]
     };
   },
   created() {
     this.nashuju({ carId: this.$route.query.carId, cityId: this.cityid });
+    
   },
   components: {
     Up
   },
   computed: {
     ...mapState({
-       list : state => state.Zxdj.list,
+      list: state => state.Zxdj.list,
       list1: state => state.Up.list, //list1是为了获取cityid,
-      cityName: state => state.Up.cityName
+      cityName: state => state.Up.cityName,
+      getCityID: state => state.Up.cityID
     })
   },
+  watch: {   //watch方法用于监听data和computed里数据得变化,第一个参数现在的值，第二个参数，旧的值，里面写函数名
+    getCityID(now, old) { //函数名就是上面data或者computed里的数据，在这里一旦getCityID值变化，会立即执行这个函数
+       this.nashuju({ carId: this.$route.query.carId, cityId: now });
+    }
+  },  
   methods: {
     //在mehoods里拿过来vuex里的方法，然后在生命周期里掉
     ...mapActions({
       nashuju: "Zxdj/nashuju"
+      
     }),
     ...mapActions({
       getSheng: "Up/getSheng"
@@ -100,6 +120,16 @@ export default {
       console.log(this.cityid);
 
       // this.nashuju({carId:this.$route.query.carId,cityId:this.cityid})
+    },
+    changeduigou(ind) {   //isArr此时是[0,1,2]，所以前三个默认打对勾
+      //let arr = Object.assign(this.);
+      let id = this.isArr.indexOf(ind); //点击查找传过来的下标
+      if (this.isArr.includes(ind)) {  //如果这个数组里有点击传过来的值，将这个值从数组里删掉，此时就不打对勾了
+        this.isArr.splice(id, 1);
+        
+      } else {   //如果这个数组里没有，push进去，就打上对勾了
+        this.isArr.push(ind);
+      }
     }
   }
 };
@@ -112,6 +142,7 @@ export default {
   background: #fff;
 }
 .box .one {
+  position: relative;
   width: 100%;
   height: 60px;
   padding: 10px;
@@ -235,5 +266,23 @@ export default {
   width: 100%;
   background: red;
   height: 2000px;
+}
+
+.duigou {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #3aacff;
+  color: #3aacff;
+  line-height: 20px;
+  text-align: center;
+  position: absolute;
+  left: 5px;
+  top: 50%;
+
+  &.active4 {
+    color: white;
+  }
 }
 </style>

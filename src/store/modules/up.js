@@ -2,7 +2,8 @@ import {getSheng} from '@/services/index'
 
 const state = {
     list: [],
-    cityName: ''
+    cityName: '',
+    cityID: 0
 }
 
 const mutations = {
@@ -12,6 +13,9 @@ const mutations = {
     setCityName(state, payload) {
         console.log(payload)
         state.cityName = payload
+    },
+    setCityID(state, payload) {
+        state.cityID = payload
     }
 }
 

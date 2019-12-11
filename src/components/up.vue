@@ -12,7 +12,7 @@
         <div class="touming" @click="boxdisappear"></div>
         <div class="baise">
           <div v-for="(item) in listRight.data" :key="item.CityID" class="a1">
-            <p @click="closeFather(item.CityName)">{{item.CityName}}</p>
+            <p @click="closeFather(item.CityName, item.CityID)">{{item.CityName}}</p>
           </div>
         </div>
       </div>
@@ -35,26 +35,25 @@ export default {
   },
   computed: {
     ...mapState({
-      list: state => state.Up.list
-    }),
-    ...mapState({
+      list: state => state.Up.list,
+      listfu:state=>state.Zxdj.list,
       listRight: state => state.Right.listright
     }),
-    ...mapState({
-        listfu:state=>state.Zxdj.list
-    })
+
   },
   created() {
     this.getSheng();
   },
   methods: {
      ...mapMutations({
-        setCityName: 'Up/setCityName'
+        setCityName: 'Up/setCityName',
+        setCityID: 'Up/setCityID'
      }),
-     closeFather(cityName) {
+     closeFather(cityName, cityId) {  //关闭滑块
         this.$emit('update:chuan', false) //update关键字，第二个参数false是往回传的值
         this.setCityName(cityName)
-        this.nashuju({cityId:202,carId:131315})
+        this.setCityID(cityId)
+        // this.nashuju({cityId:202,cityId})
      },
     ...mapActions({
       getSheng: "Up/getSheng"
