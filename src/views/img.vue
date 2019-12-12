@@ -35,13 +35,9 @@
             </div>
          </transition>
 
-          <transition name="pictureList">
-             <!-- 选择具体车款 -->
-             <div class="wrap" v-show="showPicture">
-                <Picture :showPicture.sync="showPicture"/>
-            </div>
-         </transition>   
+             <Picture v-if="showPicture" :showPicture.sync="showPicture"/> 
 
+          <!-- 缩放 -->
          <ImagePreview v-if="showImageSwiper" :showImageSwiper.sync="showImageSwiper"></ImagePreview>
     </div>
 </template>
@@ -98,15 +94,15 @@ export default {
         ...mapMutations({
             setCurrent:"img/setCurrent",
             setImageId:'img/setImageId',
-            setPictureList: 'img/setPictureList'
+            setPictureList: 'img/setPictureList',
+            setSerialID: 'img/setSerialID'
         }),
         //图片列表
         showPictureList(value){
-            console.log(value)
-
+            //把里面的图片列表显示出来
             this.showPicture = true;
+            //设置图片的ImageID
             this.setImageId(value)
-            this.getPictureList(this.$route.query.SerialID)
         },
         //点击图片
         showSwiper(item,index){
@@ -130,6 +126,7 @@ export default {
     },
     created(){
         this.getImageList(this.$route.query.SerialID)
+        this.setSerialID(this.$route.query.SerialID)
     }
 }
 </script>

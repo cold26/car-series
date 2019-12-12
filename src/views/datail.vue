@@ -69,11 +69,11 @@ export default {
                 carId:list.list[0].car_id
             }})
         },
-        goPrice(id){
-            // console.log(id)
+        goPrice(item){
+            // console.log(item)
 
             this.$router.push({path:"/pricepage",query:{
-                carId:id
+                carId:item.car_id
             }})
         },
         change(index,item){

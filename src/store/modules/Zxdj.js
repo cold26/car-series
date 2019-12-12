@@ -9,11 +9,11 @@ const mutations = {
         state.list = payload; 
     }
 }
-
+ 
 const actions = {
     async  nashuju({commit}, payload){
         let res = await nashuju({cityId:payload.cityId,carId:payload.carId});
-        commit('updateList', res.data);
+        commit('updateList', res.data.data);
     }
 }
 

@@ -12,7 +12,8 @@ import Zxdj from './modules/Zxdj'
 import City from './modules/city'
 import img from './modules/img'
 import color from './modules/color'
-
+import Up from "./modules/up"
+import Right from "./modules/Right"
 export default new Vuex.Store({
    modules :{
      home,
@@ -20,7 +21,9 @@ export default new Vuex.Store({
      Zxdj,
      City,
      img,
-     color
+     color,
+     Up,
+     Right
    },
    plugins:[creareLogger()]
 

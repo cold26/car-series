@@ -10,3 +10,6 @@ export * from "./modules/city"
 export * from "./modules/img"
 // 颜色页面
 export * from "./modules/color"
+
+export * from './modules/up'
+export * from './modules/Right'

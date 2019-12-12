@@ -6,8 +6,8 @@ export let nashuju = (obj)=>{
 
     return request('/v2-dealer-alllist.html',{
         params:{
-            cityid:obj.cityId,
-            carid:obj.carId
+            cityId:obj.cityId,
+            carId:obj.carId
         }
     })
 }
