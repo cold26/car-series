@@ -26,6 +26,11 @@ const routes = [
     path: '/img',
     name: 'img',
     component: () => import('../views/img.vue')
+  },
+  {
+    path: '/shangla',
+    
+    component: () => import('../views/shangla.vue')
   }
 ]
 

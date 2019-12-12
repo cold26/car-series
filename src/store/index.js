@@ -18,6 +18,14 @@ import img from './modules/img'
 import color from './modules/color'
 
 export default new Vuex.Store({
+  state: {
+    show: false
+  },
+  mutations: {
+    changeShow(state, payload) {
+      state.show = payload
+    }
+  },
    modules :{
      home,
      detail,

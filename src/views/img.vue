@@ -1,5 +1,6 @@
 <template>
-    <div class="car-img">
+    <div>
+        <div class="car-img" v-show="!imgListFlag">
         <div class="flex-row">
             <p>
                 <span @click="changeFlag" v-if="!colorName">颜色∨</span>
@@ -37,10 +38,15 @@
 
           <transition name="pictureList">
              <!-- 选择具体车款 -->
-             <div class="wrap" v-show="showPicture">
+             <!-- <div class="wrap" v-show="showPicture">
                 <Picture :showPicture.sync="showPicture"/>
-            </div>
+            </div> -->
          </transition>   
+
+         
+    </div>
+<!-- imgList组件 -->
+         <ImgList v-show="imgListFlag"/>    
     </div>
 </template>
 
@@ -48,19 +54,22 @@
 import Color from '@/components/image/color'
 import Yearcar from '@/components/image/Yearcar'
 import Picture from '@/components/image/picture'
+import ImgList from '@/components/ImgList'
 import {mapState,mapActions, mapMutations} from 'vuex'
 export default {
     data(){
         return {
             flag:false,
             showCar:false,
-            showPicture:false
+            showPicture:false,
+            imgListFlag: false
         }
     },
     components:{
         Color,
         Yearcar,
-        Picture
+        Picture,
+        ImgList
     },
 
     // 注入数据
@@ -92,6 +101,7 @@ export default {
         }),
         //图片列表
         showPictureList(value){
+            this.imgListFlag = true
             this.showPicture = true;
             this.setImageId(value)
             this.getPictureList(this.$route.query.SerialID)

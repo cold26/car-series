@@ -11,7 +11,9 @@ Vue.use(VueLazyload)
 Vue.config.productionTip = false
 import Vant from 'vant';
 import 'vant/lib/index.css';
+import { List } from 'vant';
 
+Vue.use(List);
 Vue.use(Vant);
 new Vue({
   router,

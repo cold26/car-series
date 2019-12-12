@@ -42,11 +42,9 @@ const mutations = {
     // 给图片列表的数组赋值
     setPictureList(state,payload){
         state.Count = payload.Count
-        console.log(payload,"....")
-        state.pictureList = payload.List.map(item=>{
-            item.Url = item.Url.replace("{0}",3);
-            return item
-        })
+        // console.log(payload.List,"....")
+        state.pictureList = payload.List 
+        
     }
 }
 //异步
