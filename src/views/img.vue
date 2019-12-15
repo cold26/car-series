@@ -17,7 +17,7 @@
                        <p>{{item.Name}}</p>
                        <p>{{item.Count}}></p>
                    </div>
-                   <img :src=value.Url alt="" class="img"  @click.self="showSwiper(item,ide)">
+                   <img  v-lazy="value.Url" class="img"  @click.self="showSwiper(item,ide)">
                 </li>
             </div>
         </div>
@@ -48,6 +48,8 @@ import Yearcar from '@/components/image/Yearcar'
 import Picture from '@/components/image/picture'
 import ImagePreview from '@/components/image/ImagePreview'
 import {mapState,mapActions, mapMutations} from 'vuex'
+import Vue from 'vue';
+
 export default {
     data(){
         return {

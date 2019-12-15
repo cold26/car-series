@@ -29,7 +29,7 @@
                     :key="ind" class="mbig" 
                     @click="goDetail(ite.SerialID)"
                     >
-                    <img :src="ite.Picture" alt class="mimg" />
+                    <img  v-lazy="ite.Picture" alt class="mimg" />
                     <div class="msmall">
                         <p>{{ite.AliasName}}</p>
                         <p class="zi">{{ite.DealerPrice}}</p>

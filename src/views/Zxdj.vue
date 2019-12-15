@@ -6,7 +6,7 @@
     <div class="main">
       <div v-if="list.details" class="shang1">
         <div class="shang">
-          <img :src="list.details.serial.Picture" />
+          <img v-lazy="list.details.serial.Picture" />
           <div class="shang-right">
             <p>{{list.details.serial.AliasName}}</p>
             <p>
@@ -182,8 +182,6 @@ export default {
   overflow-x: hidden;
   overflow-y: auto;
   background: #f4f4f4;
-  // overflow: hidden;
-  overflow-x: scroll;
 }
 .main {
   width: 100%;

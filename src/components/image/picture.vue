@@ -23,8 +23,12 @@
             @pullingUp="onPullingUp"
         >
             <ul>
-                <span :key="index" @click="showSwiper(index)" v-for="(item, index) in pictureList" :style="{backgroundImage: 'url('+item.Url.replace('{3}', item.LowSize)+')'}"/>
+                <span :key="index" 
+                @click="showSwiper(index)" v-for="(item, index) in pictureList" 
+                 v-lazy:background-image="item.Url.replace('{3}', item.LowSize)"
+                />
             </ul>
+            <!--  v-lazy:background-image="'url('+item.Url.replace('{3}', item.LowSize)+')'" -->
         </Scroll>
         <ImagePreview v-if="showImageSwiper" :showImageSwiper.sync="showImageSwiper"></ImagePreview>   
         <!-- 

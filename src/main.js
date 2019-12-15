@@ -7,12 +7,17 @@ import store from './store'
 import VueLazyload from 'vue-lazyload'
 
 import "lib-flexible/flexible.js"
+
 Vue.use(VueLazyload)
 
 
 Vue.config.productionTip = false
 import Vant from 'vant';
-
+import { Lazyload } from 'vant';
+Vue.use(Lazyload, {
+    error: 'https://img.yzcdn.cn/vant/apple-1.jpg',
+    loading:'https://img.yzcdn.cn/vant/apple-2.jpg'  
+});
 import { List } from 'vant';
 import 'vant/lib/index.css';
 
