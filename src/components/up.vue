@@ -1,8 +1,8 @@
 <template>
   <div class="wrap" :class="{active:chuan}" >
     <div v-if="list.length!=0" :class="{active2:gai}">
-       <div class="top1"><span>自动定位</span></div>
-       <div  class="top2"><span>北京</span> </div>
+        <div class="top1"><span>自动定位</span></div>
+        <div class="top2"><span>北京</span> </div>
         <div class="top1"><span>省市</span></div>
       <div v-for="(item,index) in list.data" :key="index" class="left1">
         <p @click="renderCity(item.CityID)">{{item.CityName}}</p>
@@ -95,17 +95,21 @@ export default {
   top: 0;
   transform: translateY(100%);
   z-index: 20;
+
    .left1{
       z-index: 20;
       display: flex;
       height: 35px;
       line-height: 35px;
       border-bottom: 1px solid #ccc;
+      background: #fff;
+
        p:nth-child(1){
-           flex:9;
+          flex:9;
          margin-left: 10px;
           margin-left: 10px;
            font-size: 14px;
+
        }
         p:nth-child(2){
            flex:1;
@@ -117,18 +121,19 @@ export default {
       width: 100%;
       height: 20px;
       background: #f4f4f4;
+      padding-left: 10px;
       span{
-         margin-left: 10px;
-          margin-left: 10px;
-           font-size: 14px;
+          // font-size: 14px;
       }
    }
    .top2{
        width: 100%;
        height: 35px;
        line-height: 35px;
+       padding-left: 10px;
+       background: #fff;
        span{
-           margin-left: 10px;
+
            font-size: 14px;
        }
    }
@@ -163,9 +168,11 @@ export default {
     background:white;
     overflow-y: scroll;
     .a1{
+      padding-left: 10px;
       height: 35px;
       line-height: 35px;
       border-bottom: 1px solid #ccc;
+      font-size: 14px;
     }
   }
 }

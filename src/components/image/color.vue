@@ -22,7 +22,7 @@ export default {
             currentIndex:0
         }
     },
-    // 
+    // 注入state的数据
     computed:{
         ...mapState({
             list:state=>state.color.list,

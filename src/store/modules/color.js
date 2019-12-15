@@ -19,7 +19,6 @@ const mutations = {
         
 
        state.list = list
-    //    console.log(state.list,"11111111111")
     }
 }
 //异步操作
@@ -27,7 +26,6 @@ const actions = {
     async getModelImageYearColor({commit},payload){
         let res = await getModelImageYearColor(payload)
         commit('colorList',res)
-        console.log(res,"res...")
     }
 }
 

@@ -10,31 +10,20 @@ import home from './modules/home'
 import detail from './modules/detail'
 import Zxdj from './modules/Zxdj'
 import City from './modules/city'
-
-import Up from "./modules/up"
-import Right from "./modules/Right"
-// 图片
 import img from './modules/img'
 import color from './modules/color'
-
+import Up from "./modules/up"
+import Right from "./modules/Right"
 export default new Vuex.Store({
-  state: {
-    show: false
-  },
-  mutations: {
-    changeShow(state, payload) {
-      state.show = payload
-    }
-  },
    modules :{
      home,
      detail,
      Zxdj,
      City,
-     Up,
-     Right,
      img,
-     color
+     color,
+     Up,
+     Right
    },
    plugins:[creareLogger()]
 

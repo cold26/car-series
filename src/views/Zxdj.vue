@@ -4,7 +4,7 @@
       <p>可向多个商家咨询最低价，商家及时回复</p>
     </div>
     <div class="main">
-      <div v-if="list.details">
+      <div v-if="list.details" class="shang1">
         <div class="shang">
           <img :src="list.details.serial.Picture" />
           <div class="shang-right">
@@ -49,13 +49,13 @@
           <!-- <span class="duigou" @click="changeduigou" >√</span> -->
 
           <!-- <span :style="{display:'block',width:'20px',height:'20px',background:'red'}">√</span> -->
-          <li>
+          <li class="first">
             <p>{{item.dealerShortName}}</p>
             <span>万</span>
           </li>
           <li>
             <p class="c1">{{item.address}}</p>
-            <span :style="{width:'37px'}">售本市</span>
+            <span>售本市</span>
           </li>
         </div>
       </div>
@@ -85,7 +85,6 @@ export default {
   },
   created() {
     this.nashuju({ carId: this.$route.query.carId, cityId: this.cityid });
-    
   },
   components: {
     Up
@@ -98,16 +97,17 @@ export default {
       getCityID: state => state.Up.cityID
     })
   },
-  watch: {   //watch方法用于监听data和computed里数据得变化,第一个参数现在的值，第二个参数，旧的值，里面写函数名
-    getCityID(now, old) { //函数名就是上面data或者computed里的数据，在这里一旦getCityID值变化，会立即执行这个函数
-       this.nashuju({ carId: this.$route.query.carId, cityId: now });
+  watch: {
+    //watch方法用于监听data和computed里数据得变化,第一个参数现在的值，第二个参数，旧的值，里面写函数名
+    getCityID(now, old) {
+      //函数名就是上面data或者computed里的数据，在这里一旦getCityID值变化，会立即执行这个函数
+      this.nashuju({ carId: this.$route.query.carId, cityId: now });
     }
-  },  
+  },
   methods: {
     //在mehoods里拿过来vuex里的方法，然后在生命周期里掉
     ...mapActions({
       nashuju: "Zxdj/nashuju"
-      
     }),
     ...mapActions({
       getSheng: "Up/getSheng"
@@ -121,13 +121,15 @@ export default {
 
       // this.nashuju({carId:this.$route.query.carId,cityId:this.cityid})
     },
-    changeduigou(ind) {   //isArr此时是[0,1,2]，所以前三个默认打对勾
+    changeduigou(ind) {
+      //isArr此时是[0,1,2]，所以前三个默认打对勾
       //let arr = Object.assign(this.);
       let id = this.isArr.indexOf(ind); //点击查找传过来的下标
-      if (this.isArr.includes(ind)) {  //如果这个数组里有点击传过来的值，将这个值从数组里删掉，此时就不打对勾了
+      if (this.isArr.includes(ind)) {
+        //如果这个数组里有点击传过来的值，将这个值从数组里删掉，此时就不打对勾了
         this.isArr.splice(id, 1);
-        
-      } else {   //如果这个数组里没有，push进去，就打上对勾了
+      } else {
+        //如果这个数组里没有，push进去，就打上对勾了
         this.isArr.push(ind);
       }
     }
@@ -138,30 +140,42 @@ export default {
 <style scoped lang="scss">
 .box {
   margin-top: 10px;
-  padding: 0 10px;
   background: #fff;
+  padding: 0 10px;
 }
 .box .one {
   position: relative;
   width: 100%;
-  height: 60px;
-  padding: 10px;
-  padding-left: 30px;
+  height: 70px;
   border-bottom: 1px solid #ccc;
   li {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-    p {
-      overflow: hidden;
+    padding-left: 30px;
+    span {
+      display: inline-block;
     }
   }
 }
-.one li:first-child p {
-  font-size: 15px;
+.first {
+  padding-top: 10px;
 }
-
+// .one li:first-child p {
+//   font-size: 15px;
+// }
+.one li:last-child {
+  margin-top: 10px;
+}
+.one li:last-child {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.one li:last-child p {
+  width: 260px;
+  // margin-right: 30px;
+}
 .wrap {
   width: 100%;
   height: 100%;
@@ -169,10 +183,12 @@ export default {
   overflow-y: auto;
   background: #f4f4f4;
   // overflow: hidden;
+  overflow-x: scroll;
 }
 .main {
   width: 100%;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 .header {
   width: 100%;
@@ -184,34 +200,49 @@ export default {
   color: white;
   text-align: center;
 }
+.main > div:first-child {
+  background: #fff;
+}
 .shang {
   display: flex;
   width: 100%;
   height: 70x;
+  padding: 14px 10px;
+  background: #fff;
   img {
     width: 115px;
-    height: 70.5px;
+    height: 100%;
   }
 }
 .shang .shang-right {
+  flex: 1;
   display: flex;
+  margin-left: 10px;
   flex-direction: column;
-  height: 30px;
-  line-height: 30px;
 }
-.shang .shang-right .p {
-  margin-top: 10px;
+.shang .shang-right p:first-child {
+  font-size: 18px;
+}
+.shang-right p:last-child {
+  flex: 1;
+  margin-top: 15px;
+  font-size: 15px;
+  line-height: 40px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .zhong {
   width: 100%;
   height: 30px;
   background: #ccc;
   color: #666;
+  padding-left: 15px;
   line-height: 30px;
 }
 .gerenxinxi {
-  width: 355px;
-  margin: 0 auto;
+  width: 100%;
+  padding: 0 15px;
   background: #fff;
 }
 .gerenxinxi p {
@@ -280,6 +311,7 @@ export default {
   position: absolute;
   left: 5px;
   top: 50%;
+  margin-top: -10px;
 
   &.active4 {
     color: white;

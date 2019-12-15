@@ -55,7 +55,7 @@ const mutations = {
         //去重
         year = [...new Set(year)]
     
-        console.log(year)
+        // console.log(year)
 
         year = year.sort(function (a,b){
             return b-a
@@ -82,7 +82,6 @@ const mutations = {
         state.currentList = currentList;
     },
     tabDetailList(state,payload){
-        console.log(payload,"item")
         state.current = payload
     }
    

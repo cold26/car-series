@@ -1,6 +1,5 @@
 <template>
-    <div>
-        <div class="car-img" v-show="!imgListFlag">
+    <div class="car-img">
         <div class="flex-row">
             <p>
                 <span @click="changeFlag" v-if="!colorName">颜色∨</span>
@@ -18,7 +17,7 @@
                        <p>{{item.Name}}</p>
                        <p>{{item.Count}}></p>
                    </div>
-                   <img :src=value.Url alt="" class="img">
+                   <img :src=value.Url alt="" class="img"  @click.self="showSwiper(item,ide)">
                 </li>
             </div>
         </div>
@@ -36,17 +35,10 @@
             </div>
          </transition>
 
-          <transition name="pictureList">
-             <!-- 选择具体车款 -->
-             <!-- <div class="wrap" v-show="showPicture">
-                <Picture :showPicture.sync="showPicture"/>
-            </div> -->
-         </transition>   
+             <Picture v-if="showPicture" :showPicture.sync="showPicture"/> 
 
-         
-    </div>
-<!-- imgList组件 -->
-         <ImgList v-show="imgListFlag"/>    
+          <!-- 缩放 -->
+         <ImagePreview v-if="showImageSwiper" :showImageSwiper.sync="showImageSwiper"></ImagePreview>
     </div>
 </template>
 
@@ -54,7 +46,7 @@
 import Color from '@/components/image/color'
 import Yearcar from '@/components/image/Yearcar'
 import Picture from '@/components/image/picture'
-import ImgList from '@/components/ImgList'
+import ImagePreview from '@/components/image/ImagePreview'
 import {mapState,mapActions, mapMutations} from 'vuex'
 export default {
     data(){
@@ -62,14 +54,15 @@ export default {
             flag:false,
             showCar:false,
             showPicture:false,
-            imgListFlag: false
+            showImageSwiper: false
+
         }
     },
     components:{
         Color,
         Yearcar,
         Picture,
-        ImgList
+        ImagePreview
     },
 
     // 注入数据
@@ -85,6 +78,7 @@ export default {
     watch:{
         colorId(){
             this.getImageList(this.$route.query.SerialID);
+            console.log(this.colorId)
         },
         carId(){
             this.getImageList(this.$route.query.SerialID);
@@ -94,17 +88,32 @@ export default {
         // 注入方法
         ...mapActions({
             getImageList:'img/getImageList',
-            getPictureList:"img/getPictureList"
+            getPictureList:"img/getPictureList",
+           
         }),
         ...mapMutations({
-            setImageId:'img/setImageId'
+            setCurrent:"img/setCurrent",
+            setImageId:'img/setImageId',
+            setPictureList: 'img/setPictureList',
+            setSerialID: 'img/setSerialID'
         }),
         //图片列表
         showPictureList(value){
-            this.imgListFlag = true
+            //把里面的图片列表显示出来
             this.showPicture = true;
+            //设置图片的ImageID
             this.setImageId(value)
-            this.getPictureList(this.$route.query.SerialID)
+        },
+        //点击图片
+        showSwiper(item,index){
+            console.log(item,index,"11111")
+            this.setCurrent(index)
+            this.setPictureList({
+                Count:item.Count,
+                List:item.List,
+                ImageID:item.Id
+            })
+            this.showImageSwiper = true
         },
         // 颜色
         changeFlag(){
@@ -117,6 +126,7 @@ export default {
     },
     created(){
         this.getImageList(this.$route.query.SerialID)
+        this.setSerialID(this.$route.query.SerialID)
     }
 }
 </script>

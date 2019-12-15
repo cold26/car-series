@@ -22,10 +22,8 @@ const mutations = {
 const actions = {
       async getSheng({ commit }, payload) {
         
-      let res= await getSheng(payload)
-      
-        console.log('res123456', res.data);
-
+        let res= await getSheng(payload)
+        console.log(res,"aaaaaaaaaaa")
        await  commit('updateList', res.data);
     }
 }
