@@ -50,6 +50,9 @@ export default {
         setCityID: 'Up/setCityID'
      }),
      closeFather(cityName, cityId) {  //关闭滑块
+     console.log(1111)
+        _hmt.push(['_trackEvent', "点击", "关闭",cityId]);
+
         this.$emit('update:chuan', false) //update关键字，第二个参数false是往回传的值
         this.setCityName(cityName)
         this.setCityID(cityId)
@@ -122,9 +125,7 @@ export default {
       height: 20px;
       background: #f4f4f4;
       padding-left: 10px;
-      span{
-          // font-size: 14px;
-      }
+      
    }
    .top2{
        width: 100%;

@@ -8,17 +8,17 @@ import VueLazyload from 'vue-lazyload'
 
 import "lib-flexible/flexible.js"
 Vue.use(VueLazyload)
-
+ 
 
 Vue.config.productionTip = false
-import Vant from 'vant';
+// import Vant from 'vant';
 
-import { List } from 'vant';
-import 'vant/lib/index.css';
+// import { List } from 'vant';
+// import 'vant/lib/index.css';
 
 
-Vue.use(List);
-Vue.use(Vant);
+// Vue.use(List);
+// Vue.use(Vant);
 
 new Vue({
   router,

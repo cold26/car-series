@@ -13,15 +13,18 @@
             </dl>
         </div>
         <!-- 右边定位 -->
-        <div class="b3">
-            <div v-for="(value,key1) in obj" :key="key1">
+        <div class="b3" ref="aaa"
+            @touchstart="rightTouchStart"
+            @touchmove="rightTouchMove"
+        >
+            <div v-for="(value,key1) in rightList" :key="key1">
                 <p>
-                     <a :href="'#'+key1">{{key1}}</a>
+                     <a :href="'#'+key1">{{value}}</a>
                 </p>
             </div>
         </div>
         <!-- 弹出层 -->
-        <div class="mask" :class="{active:flag}">
+        <div class="mask" :class="{active:flag}" @touchstart="touchstart" @touchend="touchend">
             <div v-for="(item,index) in arr" :key="index">
                 <p class="mp" @click="flag=false">{{item.GroupName}}</p>
                 <div 
@@ -46,10 +49,15 @@ import {mapState,mapActions,mapMutations} from 'vuex'
 export default {
     data(){
         return {
-            flag:false
+            flag:false,
+            pagestartX:null,
+            pagestartY:null
         }
     },
     computed:{
+        rightList() {
+            return Object.keys(this.obj)
+        },
         ...mapState({
             obj:state=>state.home.obj,
             arr:state=>state.home.arr
@@ -57,11 +65,53 @@ export default {
         })
     },
     methods:{ 
+        rightTouchStart(e) {
+            console.log(e)
+            // let h = document.querySelector('.b3').offsetTop
+            // console.log(e.target.offsetHeight)
+            // let index = Math.floor((e.touches[0].clientY - h) / e.target.offsetHeight)  
+            // if (index >= this.rightList.length - 1) {
+            //     index = this.rightList.length - 1
+            // }
+            // if (index <= 0) {
+            //     index = 0
+            // }
+            // let top = document.querySelector('#' + this.rightList[index]).offsetTop
+            // window.scrollTo(0, top)
+        },
+        rightTouchMove(e) {
+            let h = document.querySelector('.b3').offsetTop //获取右侧点击的东西到顶部的距离
+            let index = Math.floor((e.touches[0].clientY - h) / e.target.offsetHeight) 
+            console.log(index)
+            //84行获取的是我点的那一个点距离屏幕顶部的距离-h就是滑动了那一截的距离，除以每一个Abc的高，就是几个abc，从而获取下标 
+            if (index >= this.rightList.length - 1) {  //如果滑动到最下面，让下标等于最下边的
+                index = this.rightList.length - 1    //这个判断是判断的临界值
+            }
+            if (index <= 0) {   //如果滑到最上面，让下标等于最上面
+                index = 0
+            }
+            let top = document.querySelector('#' + this.rightList[index]).offsetTop
+            window.scrollTo(0, top)    //让左边的滚动距离等于
+             
+        },
         ...mapActions({
             getMasterBrandList:"home/getMasterBrandList",
             getMarkList:"home/getMarkList"
         }),
-       
+        touchstart(e){
+            console.log(e)
+            this.pagestartX=e.targetTouches[0].pageX
+             this.pagestartY=e.targetTouches[0].pageY
+            // console.log(this.$refs.aaa.offsetTop)
+        },
+        touchend(e){
+           let movepageX=e.changedTouches[0].pageX
+            let movepageY=e.changedTouches[0].pageY
+             if(movepageX-this.pagestartX>50&&this.pagestartY-movepageY<50){
+                 this.flag=false
+             }
+            console.log(e)
+        },
         tanchu(id){
             this.flag = true
             this.getMarkList(id)

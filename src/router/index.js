@@ -27,6 +27,7 @@ const routes = [
     name: 'img',
     component: () => import('../views/img.vue')
   }
+  
 ]
 
 const router = new VueRouter({
