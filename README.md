@@ -1,19 +1,6 @@
-# car-into
-
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+这是一个模仿车轮做的demo，案列做的还有很多不足的地方。下面来列一下这个项目用到的知识点。
+1.对象怎么变数组，对象的遍历。
+2.楼层效果，首次使用锚点链接实现，第二次使用touch事件
+3.vant的按需加载
+4.transform和translate
+5.移动端兼容
