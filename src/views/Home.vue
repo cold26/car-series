@@ -65,7 +65,6 @@ export default {
     },
     methods:{ 
         rightTouchStart(e) {
-            console.log(e)
             // let h = document.querySelector('.b3').offsetTop
             // console.log(e.target.offsetHeight)
             // let index = Math.floor((e.touches[0].clientY - h) / e.target.offsetHeight)  
@@ -81,7 +80,6 @@ export default {
         rightTouchMove(e) {
             let h = document.querySelector('.b3').offsetTop //获取右侧点击的东西到顶部的距离
             let index = Math.floor((e.touches[0].clientY - h) / e.target.offsetHeight) 
-            console.log(index)
             //84行获取的是我点的那一个点距离屏幕顶部的距离-h就是滑动了那一截的距离，除以每一个Abc的高，就是几个abc，从而获取下标 
             if (index >= this.rightList.length - 1) {  //如果滑动到最下面，让下标等于最下边的
                 index = this.rightList.length - 1    //这个判断是判断的临界值
@@ -98,7 +96,6 @@ export default {
             getMarkList:"home/getMarkList"
         }),
         touchstart(e){
-            console.log(e)
             this.pagestartX=e.targetTouches[0].pageX
              this.pagestartY=e.targetTouches[0].pageY
             // console.log(this.$refs.aaa.offsetTop)
@@ -112,10 +109,12 @@ export default {
             console.log(e)
         },
         tanchu(id){
+            _hmt.push(['_trackEvent', "弹出", "弹出"]);
             this.flag = true
             this.getMarkList(id)
         },
         goDetail(id){
+           
             this.$router.push({path:"/detail",query:{SerialID:id}})
         }
     },
