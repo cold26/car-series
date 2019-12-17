@@ -1,6 +1,5 @@
 import {getImgList,getPictureList} from '@/services/index'
 
-
 const state ={
     list:[],//img页面的列表数据
     yearCar:"",//车款名字
@@ -57,8 +56,6 @@ const mutations = {
                 return item
             });
         }
-   
-
     },
      // 修改当前分页
      setPage(state, payload){
@@ -68,10 +65,8 @@ const mutations = {
     setCurrent(state, payload){
         state.current = payload;
     },
-    //把SerialID赋值
-    setSerialID(state,payload){
-        state.SerialID = payload
-    }
+    
+    
 }
 //异步操作
 const actions = {
@@ -98,8 +93,6 @@ const actions = {
             Page: state.Page,
             PageSize: state.PageSize
         }
-
-        console.log(params,"params...")
         let res = await getPictureList(params)
         commit('setPictureList',res.data.data)
     }

@@ -68,6 +68,7 @@ export default {
         },
         goDetail(id){
             this.$router.push({path:"/detail",query:{SerialID:id}})
+            _hmt.push(['_trackEvent', '详情', '详情']);
         }
     },
     created() {

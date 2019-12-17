@@ -50,7 +50,6 @@ export default {
         }),
         change(index){
             // 提前两张加载下一页图片
-            console.log(index)
             if (index > this.pictureList.length-2){
                 if (this.pictureList.length < 30){
                     this.getPictureList(1)

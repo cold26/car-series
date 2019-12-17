@@ -158,6 +158,10 @@ export default {
     }
   }
 }
+.box li:last-child span{
+  height: 100%;
+  
+}
 .first {
   padding-top: 10px;
 }

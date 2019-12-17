@@ -1,19 +1,5 @@
 <template>
     <div class="wrapper">
-        <!-- /**
-            * list 下拉刷新 加载更多
-            * @props {
-            *   list: {
-            *     query?: {[key:string]:any}, 查询条件
-            *     limit?: number, 每次查询的数量 默认10
-            *     count: number, 最后一次查询结果返回的长度 用来控制loadMore的显示与否
-            *     refreshDispatch?: string pull-refresh 查询的store dispacthName, 当需要下拉刷新的时候才传
-            *     loadMoreDispatch: string loadMore 查询的store dispacthName
-            *     value: Array<{[key:string]:any}> 查询结果
-            *   }
-            * }
-            * slotName: 'item' 显示列表项
-        */ -->
         <Scroll
             ref="scroll"
             :data="pictureList"
@@ -28,7 +14,6 @@
                  v-lazy:background-image="item.Url.replace('{3}', item.LowSize)"
                 />
             </ul>
-            <!--  v-lazy:background-image="'url('+item.Url.replace('{3}', item.LowSize)+')'" -->
         </Scroll>
         <ImagePreview v-if="showImageSwiper" :showImageSwiper.sync="showImageSwiper"></ImagePreview>   
         <!-- 
@@ -121,27 +106,15 @@ export default {
             setCurrent:"img/setCurrent"
         }),
         async onPullingDown() {
-            // console.log('pullingdown...');
-            // setTimeout(()=>{
-            //     this.refreshDispatch(1);
-            // }, 10000);
             await this.refreshDispatch(1);
         },
         async onPullingUp() {
-            // console.log('pullingup...');
-            // setTimeout(()=>{
-                // this.loadMoreDispatch(this.page + 1);
-            // }, 10000);
-            // let {Page} = this.$store.state.img
-            // console.log(Page+1,"Page")
-            console.log(this.Page)
             await this.loadMoreDispatch(this.Page + 1);
         },
         showSwiper(index){
             // 显示轮播
             this.showImageSwiper = true
             // 修改current
-            console.log(index)
             this.setCurrent(index);
         }
         

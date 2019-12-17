@@ -108,7 +108,6 @@ export default {
         },
         //点击图片
         showSwiper(item,index){
-            console.log(item,index,"11111")
             this.setCurrent(index)
             this.setPictureList({
                 Count:item.Count,

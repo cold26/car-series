@@ -12,18 +12,14 @@ Vue.use(VueLazyload)
 
 
 Vue.config.productionTip = false
-import Vant from 'vant';
-import { Lazyload } from 'vant';
+
+import { Lazyload,ImagePreview  } from 'vant';
 Vue.use(Lazyload, {
     error: 'https://img.yzcdn.cn/vant/apple-1.jpg',
-    loading:'https://img.yzcdn.cn/vant/apple-2.jpg'  
-});
-import { List } from 'vant';
-import 'vant/lib/index.css';
+    loading:'http://h5.chelun.com/2017/official/img/loading.gif'  
+})
+.use(ImagePreview)
 
-
-Vue.use(List);
-Vue.use(Vant);
 
 new Vue({
   router,
